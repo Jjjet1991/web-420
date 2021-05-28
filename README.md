@@ -1,4 +1,4 @@
-# WEB 420 API Fundamentals
+# WEB 420 RESTful APIs
 ## Contributors
 + Professor Krasso
 + Jourdan Neal
