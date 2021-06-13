@@ -1,0 +1,92 @@
+# Title: Assignment 3.2 Describing the Composer API
+# Author: Professor Krasso
+# Date: 13 June 2021
+# Modified by: Jourdan Neal
+# Description: describing the Composer API using YAML and OpenAPI Specification
+
+openapi: 3.0.0
+info:
+  title: Composer API
+  version: 1.0.0
+  #Defining reusable schemas
+components:
+  schemas:
+    #composer object
+    composer:
+      type: object
+      properties:
+        firstName:
+          type: "string"
+        lastName:
+          type: "string"
+tags:
+- name: "Composers"
+paths:
+  #GET - findAllComposers
+  /composers:
+    get:
+      tags:
+      - "Composers"
+      summary: "returns list of composer documents"
+      description: "API for returning list of composers from MongoDb Atlas"
+      #ID
+      operationId: "findAllComposers"
+      # responses for 200, 500, 501
+      responses:
+        "200" :
+          description: "Composer documents"
+        "500" :
+          description: "Server Exception"
+        "501" :
+          description: "MongoDB Exception"
+  #POST - create composer
+    post:
+      tags:
+      - "Composers"
+      summary: "Creates a new composer object"
+      description: "API for adding new composer objects"
+      #ID
+      operationId: "createComposer"
+      #Request Body w/ description 
+      requestBody:
+        description: "Composer's Information"
+        content:
+          application/jason:
+            schema:
+              #Referencing reusable composer schema
+              $ref: "#/components/schemas/composer"
+      responses:
+        "200" :
+          description: "User added"
+        "500" :
+          description: "Server Exception"
+        "501" :
+          description: "MongoDB Exception"
+#/composers/{id}-- GET -- returning single composer based on id 
+  /composers/{id}:
+    get:
+      tags:
+      - "Composers"
+      summary: "Returns a composer document"
+      description: "API for returning a single composer object from MongoDB"
+      #ID
+      operationId: "findComposerById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The composerid requested by the user."
+        required: true
+        #schema will show type: string and can also contain format
+        schema: 
+          type: "string"
+        #responses for 200, 500, 501
+      responses:
+        "200":
+          description: "Composer document in JSON format"
+        "500" :
+          description: "Server Exception"
+        "501" :
+          description: "MongoDB Exception"
+
+          
+  
