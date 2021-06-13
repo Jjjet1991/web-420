@@ -51,7 +51,7 @@ paths:
       requestBody:
         description: "Composer's Information"
         content:
-          application/jason:
+          application/json:
             schema:
               #Referencing reusable composer schema
               $ref: "#/components/schemas/composer"
