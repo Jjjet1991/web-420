@@ -15,6 +15,7 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 import mongoose from 'mongoose';
 
+
 //Create new variable app and assign it to the express library.
 var app = express();
 //Set port
@@ -23,6 +24,7 @@ var port = process.env.PORT || 3000;
 app.use(express.json());
 //Set app to use urlencoded
 app.use(express.urlencoded({extended:true}));
+
 
 //Define options object literal
 const options = {
