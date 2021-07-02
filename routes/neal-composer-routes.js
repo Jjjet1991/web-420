@@ -22,15 +22,22 @@ var mongoDB = "mongodb+srv://web420_user:web420_user@cluster0.xe3be.mongodb.net/
 mongoose.connect(mongoDB, {
 });
 
-/*
-findAllComposers
-
-When user is directed to api/composer will display array of composers (json).
-        code 200 composer list
-        code 501 will respond with 'Mongo Exception'
-        code 500 will respond with 'Server Exception'
-
-        async--enables the use of try/catch block and can have zero or more await expressions
+/**
+* findAllComposers
+* @openapi
+* /api/composers
+* get:
+*  tags:
+*    -Composers
+*  description: API for returning array of composers.
+*  summary: When user is directed to api/composer will display array of composers (json).
+*  responses:
+*       '200':
+*         description: composer list.
+*       '501':
+*          description: will respond with 'Mongo Exception'.
+*       '500' :
+*          description: will respond with 'Server Exception'.
 */
 router.get("/api/composers", async(request, response) => {
     try{
@@ -54,11 +61,21 @@ router.get("/api/composers", async(request, response) => {
 })
 
 /*
-findComposerById
-Query id to display queried composer document (json).
-        code 200 composer info
-        code 501 will respond with 'Mongo Exception'
-        code 500 will respond with 'Server Exception'
+* findComposerById
+* @openapi
+* /api/composers/:id
+* get:
+*  tags:
+*    -Composers
+*  description: API for returning a composer document
+*  summary: query id to display queried composer document (json).
+*  responses:
+*      '200':
+*         description: Composer document
+*      '501'
+*         description: will respond with 'Mongo Exception'.
+*      '500' 
+*         description: will respond with 'Server Exception'.
 */
 router.get("/api/composers/:id", async(request,response) => {
   try {
@@ -81,17 +98,35 @@ router.get("/api/composers/:id", async(request,response) => {
         })
     } 
 })
+
 /*
-createComposer
-Add new composer to Database, creates new document.
-        code 200 new composer document
-        code 501 will respond with 'Mongo Exception'
-        code 500 will respond with 'Server Exception'
-
-        await-- pause function until promise is settled (fulfilled or rejected)
-             -- will throw rejected value if promise is rejected
+* createComposer
+* @openapi
+* /api/composers
+* post:
+*  tags:
+*    -Composers
+*  name: createComposer
+*  description: API for adding new composer document
+*  summary: Creates new composer document.
+*  requestBody:
+*    description: Composer information
+*    content:
+*      application/json:
+*        schema:
+*          required:
+*            -type
+*          properties:
+*            type:
+*              type: strings
+*  responses:
+*      '200':
+*         description: Composer added
+*      '501'
+*         description: will respond with 'Mongo Exception'.
+*      '500' 
+*         description: will respond with 'Server Exception'.
 */
-
 router.post("/api/composers", async (request,response) => {
     try {
         var newComposer = {
