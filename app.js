@@ -8,45 +8,52 @@
 =====================================================
 */
 
-//Import required libraries.
-import http from 'http';
-import express from 'express';
-import swaggerUi from 'swagger-ui-express';
-import swaggerJsdoc from 'swagger-jsdoc';
-import mongoose from 'mongoose';
+//Required libraries
 
+const express = require('express');
+const http = require('http');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
+const mongoose = require('mongoose');
 
-//Create new variable app and assign it to the express library.
-var app = express();
-//Set port
-var port = process.env.PORT || 3000;
-//Set app to use express.json()
+const userAPI = require('./routes/neal-session-routes');
+
+let app = express();
+
+app.set('port', process.env.PORT || 3000);
+
 app.use(express.json());
-//Set app to use urlencoded
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({'extended': true}));
 
 
-//Define options object literal
-const options = {
-    definition: {
-      openapi: '3.0.0',
-      info: {
-        title: 'WEB 420 RESTful APIs',
-        version: '1.0.0',
-      },
-    },
-    apis: ['./routes/*.js'], // files containing annotations as above
-  };
-  
-
-//Create new openapiSpecification variable and call swaggerJsdoc
-
-const openapiSpecification = swaggerJsdoc(options);
-//Wire the openapiSpecification variable to the app variable
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
-//Use http library to create new server listening on port 3000.
-http.createServer(app).listen(port, function(){
-    console.log('Application started and listening on port 3000.')
+//Connect MongoDB
+const conn = 'mongodb+srv://web420_user:web420@cluster0.xe3be.mongodb.net/web420DB?retryWrites=true&w=majority';
+mongoose.connect(conn, {
+  promiseLibrary: require('bluebird'),
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+}) .then(() => {
+  console.log('Connection to web420DB on MongoDB Atlas successful');
+}). catch( err => {
+  console.log(`MongoDB Error: ${error.message}`);
 })
 
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'WEB 420 REStful APIs',
+      version: '1.0.0',
+    },
+  },
+  apis: ['./routes/*js']//
+};
+
+const openApiSpecification = swaggerJsdoc(options);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiSpecification));
+app.use ('/api', userAPI);
+
+http.createServer(app).listen(3000, function(){
+  console.log(`Application started and listening on port ${app.get('port')}`);
+});

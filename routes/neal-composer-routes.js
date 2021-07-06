@@ -39,7 +39,7 @@ mongoose.connect(mongoDB, {
 *       '500' :
 *          description: will respond with 'Server Exception'.
 */
-router.get("/api/composers", async(request, response) => {
+router.get("/composers", async(request, response) => {
     try{
         Composer.find({}, function(error, composers) {
             if (error) {
@@ -77,7 +77,7 @@ router.get("/api/composers", async(request, response) => {
 *      '500' 
 *         description: will respond with 'Server Exception'.
 */
-router.get("/api/composers/:id", async(request,response) => {
+router.get("/composers/:id", async(request,response) => {
   try {
       Composer.findOne({'_id': request.params.id}, function(error,response){
           if (error){
@@ -127,7 +127,7 @@ router.get("/api/composers/:id", async(request,response) => {
 *      '500' 
 *         description: will respond with 'Server Exception'.
 */
-router.post("/api/composers", async (request,response) => {
+router.post("/composers", async (request,response) => {
     try {
         var newComposer = {
             firstName: request.body.string,

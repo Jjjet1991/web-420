@@ -3,11 +3,12 @@
     "author": "Professor Krasso",
     "private": true,
     "version": "1.0.0",
-    "type": "module",
+    "type": "commonjs",
     "scripts": {
         "start": "nodemon app.js"
     },
     "dependencies": {
+        "bcryptjs": "^2.4.3",
         "bluebird": "^3.7.2",
         "express": "^4.17.1",
         "mongoose": "^5.12.12",
