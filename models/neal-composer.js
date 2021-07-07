@@ -19,8 +19,5 @@ var composerSchema = new Schema({
     lastName: {type: String, required: true}
 });
 
-//Create Composer model
-var Composer = mongoose.model('Composer', composerSchema);
-
-//Export Composer model
-module.exports = Composer; 
+//Export composer model
+module.exports = mongoose.model('Composer', composerSchema);

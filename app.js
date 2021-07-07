@@ -17,6 +17,8 @@ const swaggerJsdoc = require('swagger-jsdoc');
 const mongoose = require('mongoose');
 
 const userAPI = require('./routes/neal-session-routes');
+const composerAPI = require('./routes/neal-composer-routes');
+const personAPI = require('./routes/neal-person-routes');
 
 let app = express();
 
@@ -53,6 +55,8 @@ const openApiSpecification = swaggerJsdoc(options);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiSpecification));
 app.use ('/api', userAPI);
+app.use ('/api', composerAPI);
+app.use ('/api', personAPI);
 
 http.createServer(app).listen(3000, function(){
   console.log(`Application started and listening on port ${app.get('port')}`);

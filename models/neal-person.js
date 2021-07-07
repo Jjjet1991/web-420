@@ -12,28 +12,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-//roleSchema
-var roleSchema = new Schema ({
-  text: {type: String, required: true}
+//Define userSchema
+var personSchema = new Schema ({
+  firstName:{type: String},
+  lastName: {type: String},
+  roles: {type: String},
+  dependents: {type: String},
+  birthDate: {type : String}
 });
 
-//dependantSchema
-var dependantSchema = new Schema({
-  firstName: {type: String},
-  lastName: {type: String}
-});
 
-//personSchema
-var personSchema = new Schema({
-  firstName: {type: String},
-  lastName : {type: String},
-  roles: [roleSchema],
-  dependents: [dependantSchema],
-  birthDate: {type:String}
-});
-
-//Create Person model
-var Person = mongoose.model('Person', personSchema);
-
-//Export
-module.exports = Person; 
+//Export Person model
+module.exports = mongoose.model('Person', personSchema);

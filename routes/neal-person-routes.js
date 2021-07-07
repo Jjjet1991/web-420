@@ -34,7 +34,7 @@ const Person = require('../models/neal-person');
 router.get('/persons', async(req,res) => {
     //Wrap in try/catch block
     try {
-        Persons.find({}, function(err, students) {
+        Person.find({}, function(err, persons) {
             if (err) {
               console.log(err),
               res.status(501).send({
@@ -107,15 +107,15 @@ router.post('/persons', async(req, res) => {
             birthDate: req.body.birthDate,
         };
 
-        await Person.create(newPerson, function(err, persons) {
+        await Person.create(newPerson, function(err, person) {
           if (err) {
               console.log(err);
               res.status(500).send({
                   'message': `Server Exception: ${err}`
               })
           } else {
-              console.log(persons);
-              res.json(persons);
+              console.log(person);
+              res.json(person);
           }
         })
     } catch (e) {

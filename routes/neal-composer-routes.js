@@ -15,12 +15,7 @@ var http = require('http');
 var router = express.Router();
 
 //Composer model defined from composer.js
-var Composer = require("../models/composer");
-
-  //Connect to MongoDB
-var mongoDB = "mongodb+srv://web420_user:web420_user@cluster0.xe3be.mongodb.net/web420DB?retryWrites=true&w=majority";
-mongoose.connect(mongoDB, {
-});
+var Composer = require("../models/neal-composer");
 
 /**
 * findAllComposers
@@ -48,8 +43,8 @@ router.get("/composers", async(request, response) => {
                     'message' : `MongoDB Exception: ${error}`
                 })
             } else {
-                console.log(composer);
-                response.json(composer);
+                console.log(composers);
+                response.json(composers);
             }
         })
     } catch (e) {
@@ -79,7 +74,7 @@ router.get("/composers", async(request, response) => {
 */
 router.get("/composers/:id", async(request,response) => {
   try {
-      Composer.findOne({'_id': request.params.id}, function(error,response){
+      Composer.findOne({'_id': request.params.id}, function(error, composer){
           if (error){
               console.log(error);
               response.status(501).send({
@@ -129,9 +124,9 @@ router.get("/composers/:id", async(request,response) => {
 */
 router.post("/composers", async (request,response) => {
     try {
-        var newComposer = {
-            firstName: request.body.string,
-            lastName: request.body.string
+        const newComposer = {
+            firstName: request.body.firstName,
+            lastName: request.body.lastName
         }
     await Composer.create(newComposer, function(error,composer){
         if (error) {
@@ -152,3 +147,6 @@ router.post("/composers", async (request,response) => {
     }
 
 })
+
+//Export
+module.exports = router;
