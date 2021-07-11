@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
 =====================================================
 ; Title: Assignment 6.2 NodeSecurity
@@ -22,7 +21,7 @@ var userSchema = new Schema ({
     emailAddress: {type: String}
 });
 
-=======
+
 /*
 =====================================================
 ; Title: Assignment 6.2 NodeSecurity
@@ -47,6 +46,4 @@ var userSchema = new Schema ({
 });
 
 //Define User model
-
->>>>>>> 4b0f0680741e069ebfdcf80860c2510f7671f7ab
 module.exports = mongoose.model('User', userSchema);

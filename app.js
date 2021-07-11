@@ -19,6 +19,7 @@ const mongoose = require('mongoose');
 const userAPI = require('./routes/neal-session-routes');
 const composerAPI = require('./routes/neal-composer-routes');
 const personAPI = require('./routes/neal-person-routes');
+const nodeShopper = require('./routes/neal-node-shopper-routes');
 
 let app = express();
 
@@ -29,7 +30,7 @@ app.use(express.urlencoded({'extended': true}));
 
 
 //Connect MongoDB
-const conn = 'mongodb+srv://web420_user:web420@cluster0.xe3be.mongodb.net/web420DB?retryWrites=true&w=majority';
+const conn = 'mongodb+srv://web420_user:web420@cluster0.xe3be.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 mongoose.connect(conn, {
   promiseLibrary: require('bluebird'),
   useUnifiedTopology: true,
@@ -57,6 +58,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiSpecification));
 app.use ('/api', userAPI);
 app.use ('/api', composerAPI);
 app.use ('/api', personAPI);
+app.use ('/api', nodeShopper);
 
 http.createServer(app).listen(3000, function(){
   console.log(`Application started and listening on port ${app.get('port')}`);
