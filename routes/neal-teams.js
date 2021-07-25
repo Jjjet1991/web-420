@@ -21,7 +21,7 @@ var Team = require("../models/neal-teams");
 /**
  * findAllTeams
  * @openapi
- * /api/teams
+ * /api/teams:
  *   get:
  *     tags:
  *       - Teams
