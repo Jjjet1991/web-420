@@ -20,6 +20,7 @@ const userAPI = require('./routes/neal-session-routes');
 const composerAPI = require('./routes/neal-composer-routes');
 const personAPI = require('./routes/neal-person-routes');
 const nodeShopper = require('./routes/neal-node-shopper-routes');
+const teamAPI =require('./routes/neal-teams')
 
 let app = express();
 
@@ -59,6 +60,7 @@ app.use ('/api', userAPI);
 app.use ('/api', composerAPI);
 app.use ('/api', personAPI);
 app.use ('/api', nodeShopper);
+app.use ('/api', teamAPI);
 
 http.createServer(app).listen(3000, function(){
   console.log(`Application started and listening on port ${app.get('port')}`);
