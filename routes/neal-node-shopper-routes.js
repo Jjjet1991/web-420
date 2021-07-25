@@ -13,43 +13,39 @@ const express = require('express');
 const router = express.Router();
 const Customer = require('../models/neal-customer.js');
 
-/*
-* createCustomer
-* @openapi
-* /api/customers
-*  post:
-*    tags:
-*      - Customers
-*    name: createCustomer
-*    summary: create new Customer document
-*    requestBody:
-*     description: Customer information
-*     content:
-*       application/json:
-*         schema:
-*           required:
-*             - firstName
-*             - lastName
-*             - userName
-*             - invoices
-*           properties:
-*             firstName:
-*               type: string
-*             lastName:
-*                type: string
-*             userName:
-*                   type: string
-*             invoices:
-*                 type: array
-*                 items: invoiceSchema
-*     responses:
-*       '200':
-*         description: Customer added to MongoDB
-*       '500':
-*         description: Server Exception
-*       '501':
-*          description: MongoDB Exception
-*/
+/**
+ * createCustomer
+ * @openapi
+ * /api/customers:
+ *   post:
+ *     tags:
+ *       - Customers
+ *     name: createCustomer
+ *     summary: Creates a new customer
+ *     requestBody:
+ *       description: Customer information
+ *       content:
+ *         application/json:
+ *           schema:
+ *             required:
+ *               - firstName
+ *               - lastName
+ *               - userName
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *               userName:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Customer added
+ *       '500':
+ *         description: Server Exception
+ *       '501':
+ *         description: MongoDB Exception
+ */
 
 router.post('/customers', async (req,res) => {
     try{
@@ -81,49 +77,61 @@ router.post('/customers', async (req,res) => {
 })
 
 //-------------------------------------------------------------------------------------------//
-/*
-* createInvoiceByUserName
-* @openapi
-* /api/customers/:userName/invoices
-*  post:
-*    tags:
-*      - Customers
-*    name: createInvoicesByUserName
-*    summary: Create invoices after looking up document by userName
-*    requestBody:
-*     description: userName and invoice information
-*     content:
-*       application/json:
-*         schema:
-*           required:
-*             - userName
-*             - subtotal
-*             - tax
-*             - dateCreated
-*             - dateShipped
-*             - lineItems
-*           properties:
-*             userName:
-*               type: string
-*             subtotal:
-*                type: string
-*             tax:
-*                   type: string
-*             dateCreated:
-*                   type: string
-*             dateShipped:
-*                   type: string
-*             lineItems:
-*                 type: array
-*                 items: lineItem objects
-*     responses:
-*       '200':
-*         description: Customer added to MongoDB
-*       '500':
-*         description: Server Exception
-*       '501':
-*          description: MongoDB Exception
-*/
+/*/**
+ * createInvoice
+ * @openapi
+ * /api/customers/{username}/invoices:
+ *   post:
+ *     tags:
+ *       - Customers
+ *     name: createInvoice
+ *     summary: Adds an invoice to a customer
+ *     parameters:
+ *       - name: username
+ *         in: path
+ *         required: true
+ *         description: Customer username
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       description: Invoice information
+ *       content:
+ *         application/json:
+ *           schema:
+ *             required:
+ *               - subtotal
+ *               - tax
+ *               - dateCreated
+ *               - dateShipped
+ *               - lineItems
+ *             properties:
+ *               subtotal:
+ *                 type: number
+ *               tax:
+ *                 type: number
+ *               dateCreated:
+ *                 type: string
+ *               dateShipped:
+ *                 type: string
+ *               lineItems:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     name:
+ *                       type: string
+ *                     price:
+ *                       type: number
+ *                     quantity:
+ *                       type: number
+ *     responses:
+ *       '200':
+ *         description: Invoice added
+ *       '500':
+ *         description: Server Exception
+ *       '501':
+ *         description: MongoDB Exception
+ */
 
 router.post('/customers/:userName/invoices', async(req,res) => {
     try {
@@ -159,31 +167,33 @@ router.post('/customers/:userName/invoices', async(req,res) => {
 })
 
 //-------------------------------------------------------------------------------------------//
-/*
-* findAllInvoicesByUserName
-* @openapi
-* /api/customers/:userName/invoices
-*  get:
-*    tags:
-*      - Customers
-*    name:  findAllInvoicesByUserName
-*    summary: Display all invoices associated with userName
-*    requestBody:
-*     description: display all invoice information
-*     content:
-*       application/json:
-*         params:
-*           required:
-*             - userName
-*     responses:
-*       '200':
-*         description: Customer added to MongoDB
-*       '500':
-*         description: Server Exception
-*       '501':
-*          description: MongoDB Exception
-*/
-
+/**
+ * deleteTeamById
+ * @openapi
+ * /api/teams/{id}:
+ *   delete:
+ *     tags:
+ *       - Teams
+ *     name: deleteTeam
+ *     description: API for deleting a document from MongoDB.
+ *     summary: Removes a document from MongoDB.
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: Id of the document to remove. 
+ *         schema: 
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Team document
+ *       '401':
+ *         description: Invalid teamId
+ *       '500':
+ *         description: Server Exception
+ *       '501':
+ *         description: MongoDB Exception
+ */
 router.get('/customers/:userName/invoices', async(req,res) => {
     try{
         Customer.findOne({'userName': req.params.userName}, function(err,customer) {

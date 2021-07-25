@@ -8,41 +8,41 @@
 =====================================================
 */
 
-/*
-* create newRegisteredUser
-* @openapi
-* /api/signup
-*  post:
-*    tags:
-*      - Users
-*    name: Signup
-*    summary: Create new users, check to make sure duplicate users are not added
-*    requestBody:
-*     description: 
-*     content:
-*       application/json:
-*         schema:
-*           required:
-*             - userName
-*             - password
-*             - email
-*           properties:
-*             userName:
-*               type: string
-*             password:
-*                type: string
-*             email:
-*                 type: string
-*     responses:
-*       '200':
-*         description: Registered User
-*       '401:
-*         description: Username already in use
-*       '500':
-*         description: Server Exception
-*       '501':
-*          description: MongoDB Exception
-*/
+/**
+ * signup
+ * @openapi
+ * /api/signup:
+ *   post:
+ *     tags:
+ *       - Users
+ *     name: Signup
+ *     summary: Register a new user
+ *     requestBody:
+ *       description: User information
+ *       content:
+ *         application/json:
+ *           schema:
+ *             required:
+ *               - userName
+ *               - password
+ *               - emailAddress
+ *             properties:
+ *               userName:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               emailAddress:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: User added to MongoDB
+ *       '401':
+ *         description: Username already in use
+ *       '500':
+ *         description: Server Exception
+ *       '501':
+ *         description: MongoDB Exception
+ */
 
 //Require statements
 const express = require('express');
@@ -103,43 +103,38 @@ router.post('/signup', async(req, res) => {
     }
 })
 
-
-/*
-* Verify password
-* @openapi
-* /api/login
-*  post:
-*    tags:
-*      - Users
-*    name: Signup
-*    summary: Verify username and/or password
-*    requestBody:
-*     description: 
-*     content:
-*       application/json:
-*         schema:
-*           required:
-*             - userName
-*             - password
-*             - email
-*           properties:
-*             userName:
-*               type: string
-*             password:
-*                type: string
-*             email:
-*                 type: string
-*     responses:
-*       '200':
-*         description: User logged in
-*       '401:
-*         description: Invalid username and/or password
-*       '500':
-*         description: Server Exception
-*       '501':
-*          description: MongoDB Exception
-*/
-
+/**
+ * login
+ * @openapi
+ * /api/login:
+ *   post:
+ *     tags:
+ *       - Users
+ *     name: login
+ *     summary: User login
+ *     requestBody:
+ *       description: User information
+ *       content:
+ *         application/json:
+ *           schema:
+ *             required:
+ *               - userName
+ *               - password
+ *             properties:
+ *               userName:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: User logged in
+ *       '401':
+ *         description: Invalid username or password
+ *       '500':
+ *         description: Server Exception
+ *       '501':
+ *         description: MongoDB Exception
+ */
 router.post('/login', async(req, res) => {
     try {
         User.findOne({'userName': req.body.userName}, function(err, user) {
