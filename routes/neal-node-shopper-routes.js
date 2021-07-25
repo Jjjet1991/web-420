@@ -167,33 +167,7 @@ router.post('/customers/:userName/invoices', async(req,res) => {
 })
 
 //-------------------------------------------------------------------------------------------//
-/**
- * deleteTeamById
- * @openapi
- * /api/teams/{id}:
- *   delete:
- *     tags:
- *       - Teams
- *     name: deleteTeam
- *     description: API for deleting a document from MongoDB.
- *     summary: Removes a document from MongoDB.
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         description: Id of the document to remove. 
- *         schema: 
- *           type: string
- *     responses:
- *       '200':
- *         description: Team document
- *       '401':
- *         description: Invalid teamId
- *       '500':
- *         description: Server Exception
- *       '501':
- *         description: MongoDB Exception
- */
+
 router.get('/customers/:userName/invoices', async(req,res) => {
     try{
         Customer.findOne({'userName': req.params.userName}, function(err,customer) {
