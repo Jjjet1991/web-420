@@ -20,7 +20,7 @@ var Composer = require("../models/neal-composer");
 /**
 * findAllComposers
 * @openapi
-* /api/composers
+* /api/composers:
 * get:
 *  tags:
 *    -Composers
