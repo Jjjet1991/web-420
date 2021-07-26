@@ -25,7 +25,6 @@ const teamAPI =require('./routes/neal-teams')
 let app = express();
 
 
-
 app.use(express.json());
 app.use(express.urlencoded({'extended': true}));
 
@@ -62,7 +61,5 @@ app.use ('/api', personAPI);
 app.use ('/api', nodeShopper);
 app.use ('/api', teamAPI);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Our app is running on port ${ PORT }`);
-});
+
+app.listen(process.env.PORT || 3000);
