@@ -24,7 +24,7 @@ const teamAPI =require('./routes/neal-teams')
 
 let app = express();
 
-app.set('port', process.env.PORT || 3000);
+
 
 app.use(express.json());
 app.use(express.urlencoded({'extended': true}));
@@ -50,7 +50,7 @@ const options = {
       version: '1.0.0',
     },
   },
-  apis: ['./routes/*js']//
+  apis: ['./routes/*js']
 };
 
 const openApiSpecification = swaggerJsdoc(options);
