@@ -5,8 +5,7 @@
     "version": "1.0.0",
     "type": "commonjs",
     "scripts": {
-        "start": "nodemon app.js",
-        "postinstall": "ng build"
+        "start": "node app.js"
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
